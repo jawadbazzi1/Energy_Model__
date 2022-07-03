@@ -1,4 +1,6 @@
 import json, time
+import pickle
+
 import mlflow
 import numpy as np
 import pandas as pd
@@ -6,12 +8,16 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-model_name = "Energy Model"
-model_version = 10
+# model_name = "Energy Model"
+# model_version = 10
+#
+# model = mlflow.pyfunc.load_model(
+#     model_uri=f"models:/{model_name}/{model_version}"
+# )
+model = pickle.load(open("trained_model.pkl", "rb"))
 
-model = mlflow.pyfunc.load_model(
-    model_uri=f"models:/{model_name}/{model_version}"
-)
+with open("responses.json", mode='w', encoding='utf-8') as f:
+    json.dump([], f)
 
 
 @app.route('/')
@@ -29,14 +35,21 @@ def predict():
     response = {
         "Datetime": time.time(),
         "Values": results,
-        "Model Version": model_version
+        "Model Version": "model_version"
     }
-    json_object = json.dumps(response, indent=4)
-
-    with open("responses.json", "w") as outfile:
-        outfile.write(json_object)
+    write_json("responses.json", response)
 
     return render_template('index.html', prediction_text=results)
+
+
+def write_json(filename, data):
+    with open(filename) as fp:
+        listObj = json.load(fp)
+
+    listObj.append(data)
+
+    with open(filename, 'w') as json_file:
+        json.dump(listObj, json_file, indent=4, separators=(',', ': '))
 
 
 if __name__ == "__main__":

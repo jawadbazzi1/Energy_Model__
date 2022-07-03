@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # run this command in the terminal before running
     # mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 127.0.0.1
-    mlflow.set_tracking_uri("http://127.0.0.1:5001")
+    mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
     # read data from csv file
     energy_efficiency_data = pd.read_csv("energy_efficiency_data.csv")
@@ -112,4 +112,4 @@ if __name__ == "__main__":
 
         mlflow.log_artifact("energy_efficiency_data.csv")
         mlflow.log_artifact("main.py")
-        mlflow.log_artifact("results.csv")
+        #mlflow.log_artifact("results.csv")
