@@ -1,0 +1,18 @@
+[
+    {
+        "Datetime": 1656875728.079392,
+        "Values": [
+            26.0,
+            29.56
+        ],
+        "Model Version": "model_version"
+    },
+    {
+        "Datetime": 1656875756.7258058,
+        "Values": [
+            39.92,
+            39.87
+        ],
+        "Model Version": "model_version"
+    }
+]
