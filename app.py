@@ -8,8 +8,9 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-# model_name = "Energy Model"
-# model_version = 10
+# mlflow.set_tracking_uri("http://127.0.0.1:5000")
+# model_name = "Energy Consumption Model"
+# model_version = 1
 #
 # model = mlflow.pyfunc.load_model(
 #     model_uri=f"models:/{model_name}/{model_version}"
@@ -53,4 +54,4 @@ def write_json(filename, data):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=8080 , debug=True)

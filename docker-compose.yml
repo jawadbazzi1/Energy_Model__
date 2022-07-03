@@ -5,8 +5,11 @@ services:
     container_name: app_container
     image: app_docker
     ports:
-      - "5000:5000"
+      - "8080:8080"
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      BACKEND_URI: sqlite:///mlflow.db
+      ARTIFACT_ROOT: artifacts
 

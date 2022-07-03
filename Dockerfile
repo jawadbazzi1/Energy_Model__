@@ -7,5 +7,8 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
+ENV BACKEND_URI sqlite:///mlflow.db
+ENV ARTIFACT_ROOT /artifacts
+
 CMD [ "python", "app.py"]
 
