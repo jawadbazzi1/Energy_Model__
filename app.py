@@ -1,13 +1,12 @@
 import json, time
 import pickle
-
 import mlflow
 import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template
 
 app = Flask(__name__)
-
+# trial
 # mlflow.set_tracking_uri("http://127.0.0.1:5000")
 # model_name = "Energy Consumption Model"
 # model_version = 1
