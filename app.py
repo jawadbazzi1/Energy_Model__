@@ -17,8 +17,6 @@ app = Flask(__name__)
 # )
 model = pickle.load(open("trained_model.pkl", "rb"))
 
-with open("responses.json", mode='w', encoding='utf-8') as f:
-    json.dump([], f)
 
 
 @app.route('/')
@@ -36,7 +34,7 @@ def predict():
     response = {
         "Datetime": time.time(),
         "Values": results,
-        "Model Version": "model_version"
+        "Model Version": 10
     }
     write_json("responses.json", response)
 
