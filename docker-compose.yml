@@ -8,8 +8,17 @@ services:
       - "8080:8080"
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: app/Dockerfile
+  mlflow:
+    container_name: mlflow_container
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./data:/mlflow"
     environment:
-      BACKEND_URI: sqlite:///mlflow.db
-      ARTIFACT_ROOT: artifacts
+      BACKEND_URI: sqlite:////mlflow/mlflow.db
+      ARTIFACT_ROOT: /mlflow/artifacts
+
+
 

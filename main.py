@@ -111,4 +111,4 @@ if __name__ == "__main__":
 
         mlflow.log_artifact("energy_efficiency_data.csv")
         mlflow.log_artifact("main.py")
-        mlflow.log_artifact("responses.json")
+        mlflow.log_artifact("app/responses.json")

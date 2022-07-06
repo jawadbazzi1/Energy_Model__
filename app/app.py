@@ -4,10 +4,11 @@ import mlflow
 import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template
+from mlflow.entities import ViewType
+from mlflow.tracking import MlflowClient
 
 app = Flask(__name__)
-# trial
-# trial 1
+
 # mlflow.set_tracking_uri("http://127.0.0.1:5000")
 # model_name = "Energy Consumption Model"
 # model_version = 1
@@ -15,9 +16,16 @@ app = Flask(__name__)
 # model = mlflow.pyfunc.load_model(
 #     model_uri=f"models:/{model_name}/{model_version}"
 # )
-model = pickle.load(open("trained_model.pkl", "rb"))
+model = pickle.load(open("../trained_model.pkl", "rb"))
 
 
+# client = MlflowClient()
+# # Load best model (based on logloss) amongst all experiment runs
+# all_exps = [exp.experiment_id for exp in client.list_experiments()]
+# runs = mlflow.search_runs(experiment_ids=all_exps, run_view_type=ViewType.ALL)
+# run_id, exp_id = runs.loc[runs['metrics.r2'].idxmax()]['run_id'], runs.loc[runs['metrics.r2'].idxmax()]['experiment_id']
+# print(f'Loading best model: Run {run_id} of Experiment {exp_id}')
+# model = mlflow.sklearn.load_model(f"../mlruns/{exp_id}/{run_id}/artifacts/model/")
 
 @app.route('/')
 def home():
