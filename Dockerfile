@@ -6,7 +6,14 @@ WORKDIR /mlflow/
 RUN pip install mlflow
 EXPOSE 5000
 
+COPY . .
+
 ENV BACKEND_URI sqlite:////mlflow/mlflow.db
 ENV ARTIFACT_ROOT /mlflow/artifacts
 
+
 CMD mlflow server --backend-store-uri ${BACKEND_URI} --default-artifact-root ${ARTIFACT_ROOT} --host 127.0.0.1 --port 5000
+
+
+
+

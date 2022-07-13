@@ -9,16 +9,38 @@ services:
     build:
       context: .
       dockerfile: app/Dockerfile
-  mlflow:
-    container_name: mlflow_container
-    build: .
-    ports:
-      - "5000:5000"
+#  mlflow:
+#    container_name: mlflow_container
+#    build: .
+#    ports:
+#      - "5000:5000"
     volumes:
       - "./data:/mlflow"
+#    environment:
+#      BACKEND_URI: sqlite:////mlflow/mlflow.db
+#      ARTIFACT_ROOT: /mlflow/artifacts
+
+  mlflow:
+    restart: always
+    build: .
+    image: mlflow_server
+    container_name: mlflow_server
+    expose:
+      - 5000
+    ports:
+      - "5000:5000"
     environment:
-      BACKEND_URI: sqlite:////mlflow/mlflow.db
-      ARTIFACT_ROOT: /mlflow/artifacts
+      - BACKEND=sqlite:///db/mlflowdb.db
+      - ARTIFACTS=/mlruns
 
+    command:
+      - sh
+      - -c
+      - mlflow server
+        --port 5000
+        --host 127.0.0.1
+        --backend-store-uri $${BACKEND}
+        --default-artifact-root $${ARTIFACTS}
 
-
+    volumes:
+      - "./data:/mlflow"
